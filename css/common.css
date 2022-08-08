@@ -1,0 +1,29 @@
+body{
+	background: #fff;
+}
+.gaming{
+	margin: 20px 0;
+	text-align: center;
+    font-size: 36px;
+	background-clip: text;          /*背景を文字で切り抜く*/
+	-webkit-background-clip: text;
+	color: transparent;/*文字を透明にする*/
+    background-image: linear-gradient(45deg,
+        red,
+        orange,
+        yellow,
+        green,
+        aqua,
+        blue,
+        purple);
+    background-size: 1200%; 
+	animation: 2s linear 0s infinite alternate slide;    /* slideアニメーションを4秒で往復の線形移動を無限回行う */
+
+}
+
+@keyframes slide { 
+    from { background-position: 0% 0%; } 
+    to { background-position: 100% 0%; }    /* 右から左へ移動するアニメーション */
+}
+
+
