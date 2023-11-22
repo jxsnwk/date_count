@@ -1,6 +1,7 @@
 function button(source, options){
     const gyouzaElement = document.createElement("span")
-    gyouzaElement.innerText = "若村"
+    var random = Math.floor(Math.random() * 100);
+    gyouzaElement.innerText = (random < 6) ? "若林" : "若村";
     party.scene.current.createEmitter({
         emitterOptions: {
             loops: 1,
