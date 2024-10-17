@@ -16,18 +16,18 @@ const arrPartner = [
     {name : '月見里理人', img : 'rihito.png'},
     {name : '奏音結愛'  , img : 'yume.png'},
 
-    {name : 'right', img : 'right.jpg'},
-    {name : 'rat/寝住トエル', img : 'toeru.png'},
+    {name : 'right'         , img : 'right.png'},
+    {name : 'rat/寝住トエル' , img : 'toeru.png'},
     {name : 'KAISER/矴ツカイ', img : 'tsukai.png'},
-    {name : '7se/魚倉ナナセ', img : 'nanase.png'},
-    {name : 'shu/天森シュウ', img : 'shu.png'},
-    {name : '120K/三十里セキ', img : 'seki.jpg'},
-    {name : 'SiX/六庄エニシ', img : 'enishi.png'},
-    {name : '◇/菱ネイロ', img : 'neiro.png'},
+    {name : '7se/魚倉ナナセ' , img : 'nanase.png'},
+    {name : 'shu/天森シュウ' , img : 'shu.png'},
+    {name : '120K/三十里セキ', img : 'seki.png'},
+    {name : 'SiX/六庄エニシ' , img : 'enishi.png'},
+    {name : '◇/菱ネイロ'    , img : 'neiro.png'},
 
-    {name : '天森ユウ', img : 'yu.png'},
-    {name : 'ポプリ', img : 'popuri.png'},
-    {name : 'ぴあッチ', img : 'pia.jpg'},
+    {name : '天森ユウ' , img : 'yu.png'},
+    {name : 'ポプリ'   , img : 'popuri.png'},
+    {name : 'ぴあッチ' , img : 'pia.png'},
 ];
 
 window.onload = function() {
@@ -47,8 +47,9 @@ function buttonClick() {
     const partnerKey = Math.floor(Math.random() * arrPartner.length);
 
     const unseiResult = arrOmikuji[oimkujiKey];
-    const partnerResult = '<img src="img/' + arrPartner[partnerKey]['img'] + '"><br>'
-    + '<span>' + arrPartner[partnerKey]['name'] + '</span>';
+    const partnerResult 
+    = '<img src="img/' + arrPartner[partnerKey]['img'] + '"><br>' + 
+      '<span>' + arrPartner[partnerKey]['name'] + '</span>';
 
     // 結果を挿入
     unsei.textContent   = unseiResult;
