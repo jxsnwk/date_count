@@ -1,0 +1,98 @@
+@charset "utf-8";
+
+/* ローディング画面 */
+#loading {
+  width: 100vw;
+  height: 100vh;
+  transition: all 1s;
+  background-color: #FFF;
+
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+}
+.spinner {
+  width: 100px;
+  height: 100px;
+  margin: 200px auto;
+  background-color: #0cb1ce;
+  border-radius: 100%;
+  animation: sk-scaleout 1.0s infinite ease-in-out;
+}
+/* ローディングアニメーション */
+@keyframes sk-scaleout {
+  0% {
+    transform: scale(0);
+  } 100% {
+    transform: scale(1.0);
+    opacity: 0;
+  }
+}
+.loaded {
+  opacity: 0;
+  visibility: hidden;
+}
+
+/* コンテンツ */
+main {
+width:240px;
+margin:0 auto;
+}
+
+section {
+border:4px double red;
+text-align:center;
+color:red;
+margin: 0 0 15px 0;
+}
+
+h1 {
+margin: 0;
+border-bottom: 2px solid red;
+font-weight: normal;
+padding: 8px 0;
+height: 36px;
+}
+
+h1 .partner {
+  font-size: 18px;
+}
+
+p {
+margin: 0;
+font-weight: bold;
+font-size: 36px;
+padding: 24px 0;
+}
+
+p#partner span {
+  font-size: 18px;
+}
+
+p#partner img {
+  width : 80%;
+  height : auto;
+}
+
+button {
+all: unset;
+width: 100%;
+background: red;
+border-radius: 8px;
+color: white;
+text-align: center;
+padding: 8px 0;
+margin-top: 16px;
+cursor: pointer;
+box-shadow: 0 4px #7a0007;
+}
+
+button:hover {
+opacity: 0.8;
+}
+
+button:active {
+box-shadow: 0 1px #7a0007;
+transform: translateY(3px);
+}

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <script src="script.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <title>デスみくじ</title>
+  </head>
+  <body>
+    <!-- ローディング部分 -->
+    <div class="loading" id="loading">
+      <div class="spinner"></div>
+    </div>
+     
+    <!-- コンテンツ部分 -->
+    <main>
+        <section>
+            <h1>今日の運勢</h1>
+            <p id="unsei">？</p>
+        </section>
+        <section>
+            <h1><span class="partner">今日のラッキーパートナー</span></h1>
+            <p id="partner">？</p>
+        </section>
+
+        <button id="btn" onclick="buttonClick()">デスおみくじを引く</button>
+    </main>
+  </body>
+</html>
