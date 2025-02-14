@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="assets/css/canvas.css">
+    <script src="assets/js/tosokit.js"></script>
+    <title>例のあれキット</title>
+</head>
+
+<body>
+<header>
+    <h1>魔術基盤キット</h1>
+    ピンの文言はひらがな・カタカナのみ有効。それ以外は無視されます。<br>
+    長すぎると表示が崩れます。多くて24文字程度までが目安。<br>
+    <br>
+</header>
+<input type="text" id="kibanName" name="kibanName" placeholder="魔術基盤名"><br>
+<input type="text" id="pinTextInput" name="pinTextInput" placeholder="ピンの文言"><span class="required">必須</span><br>
+<input type="text" id="pinText" name="pinText" disabled>
+<br>
+<input type="button" value="作成" id="button" class="btn" onclick="getCanvas()">
+
+<a id="hiddenLink" download="canvas.png" style="display: none;">link</a>
+<img id="canvasImage" src="" style="display: none;">
+<button id="downloadCanvas" class="btn" onclick="downloadCanvas()">画像ダウンロード</button><br>
+
+<br>
+<canvas id="kiban" width="800" height="1000"></canvas>
+<br>
+
+</body>
+</html>
