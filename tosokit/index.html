@@ -16,6 +16,15 @@
 </header>
 <input type="text" id="kibanName" name="kibanName" placeholder="魔術基盤名"><br>
 <input type="text" id="pinTextInput" name="pinTextInput" placeholder="ピンの文言"><span class="required">必須</span><br>
+
+<form id ="pinmode">
+　
+<input type="radio" id="line" name="pinmode" value="line" checked><label for="line">列</label>
+<!-- <input type="radio" id="circle" name="pinmode" value="circle"><label for="circle">円</label> -->
+　　
+<input type="checkbox" id="bgClear" name="bgClear" value="none"><label for="bgClear">背景透過</label>
+</form>
+
 <input type="text" id="pinText" name="pinText" disabled>
 <br>
 <input type="button" value="作成" id="button" class="btn" onclick="getCanvas()">

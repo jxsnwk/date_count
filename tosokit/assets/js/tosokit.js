@@ -87,6 +87,11 @@ function setDodai(canvas, ctx){
     ctx.fillStyle = "#FFF";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
+    const bgClear = document.getElementById('bgClear').checked; // 背景透過チェック
+    if (bgClear == true) {
+        ctx.clearRect(0, 0, canvas.width, canvas.height); // 初期化
+    }
+
     // context.arc(X座標, Y座標, 半径, 描画開始角度, 描画終了角度, 反時計回り描画有無);
     ctx.strokeStyle = "#000";
     ctx.lineWidth = lineWidth;
@@ -129,7 +134,21 @@ function setKibanInfo(canvas, ctx, kibanName, pinText){
  */
 function getArrPinInfo(pinText){
     var arrPinInfo = pinText.split('');
+    const pinmode = document.querySelector('#pinmode').pinmode.value; // ピンの並べ方
 
+    if (pinmode == 'circle') {
+        arrPinInfo = getCirclePin(pinText, arrPinInfo);
+    } else {
+        arrPinInfo = getLinePin(pinText, arrPinInfo);
+    }
+
+    return arrPinInfo;
+}
+
+/**
+ * 並べ方：列
+ */
+function getLinePin(pinText, arrPinInfo) {
     const textLimit   = (pinText.length > 10) ? 8 : 10;// 1行あたりの最大ピン数
     const adjustment  = (pinText.length > 10) ? DodaiWidth/10 * 3/2 : DodaiWidth/10 * 1/2; // 余白微調整用
     const rowCountMax = Math.ceil(pinText.length/textLimit); // 端数切り上げ
@@ -143,6 +162,7 @@ function getArrPinInfo(pinText){
             : DodaiWidth/10 * 3/2 + canvasPadding;
         const x = DodaiWidth/10*(i- textLimit*(rowCount-1)) + xStart;
         const y = yStart - canvasWidth/10*(rowCountMax-rowCount) * 1.6;
+
         arrPinInfo[i] = {
             'id' : i ,
             'name' : arrPinInfo[i],
@@ -153,8 +173,30 @@ function getArrPinInfo(pinText){
         if (textLimit*rowCount-1 <= i) {
             rowCount++;
         }
-
     }
+
+    return arrPinInfo;
+}
+
+/**
+ * 並べ方：円
+ */
+function getCirclePin(pinText, arrPinInfo) {
+    // for (let i =0; i < pinText.length; i++) {
+
+    //     const x = 0;
+    //     const y = 0;
+
+    //     arrPinInfo[i] = {
+    //         'id' : i ,
+    //         'name' : arrPinInfo[i],
+    //         'boin' : arrAiueo[arrPinInfo[i]],
+    //         'x' : x,
+    //         'y' : y };
+    // }
+
+    // 実装まで一旦「並べ方：列」で取得
+    arrPinInfo = getLinePin(pinText, arrPinInfo);
 
     return arrPinInfo;
 }
@@ -192,6 +234,8 @@ function setPin(canvas, ctx, pinText, arrPinInfo){
  *
  */
 function downloadCanvas() {
+    getCanvas();
+
     const canvas = document.getElementById('kiban');
     let link     = document.getElementById('hiddenLink');
     link.href    = canvas.toDataURL();
