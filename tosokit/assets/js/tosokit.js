@@ -1,7 +1,12 @@
 // キャンバスサイズ
-const canvasWidth  = 800;
-const canvasHeight = 1000;
-const DodaiDiameter = (canvasWidth <= canvasHeight) ? canvasWidth : canvasHeight;// 最小幅
+const canvasWidth  = 1000;
+const canvasHeight = 1200;
+const canvasDiameter = (canvasWidth <= canvasHeight) ? canvasWidth : canvasHeight;// 最小幅
+const canvasPadding = 100;
+
+const DodaiWidth  = canvasWidth - canvasPadding*2;
+const DodaiHeight = canvasHeight - canvasPadding*2;
+const DodaiDiameter = (DodaiWidth <= DodaiHeight) ? DodaiWidth : DodaiHeight;// 最小幅
 
 // ピンのデザイン
 const radiusSize = 20; // 円サイズ
@@ -51,6 +56,7 @@ function getCanvas(){
 
     var kibanName    = document.getElementById('kibanName').value; // 魔術基盤名
     var pinText      = document.getElementById('pinText').value; // 魔術基盤の文言
+    kibanName = (kibanName != '') ? '・'+kibanName+'・' : '';
 
     // canvas取得無効 または 魔術基盤文言の文字数が0
     if (canvas.getContext == null || pinText.length < 1) {
@@ -85,7 +91,7 @@ function setDodai(canvas, ctx){
     ctx.strokeStyle = "#000";
     ctx.lineWidth = lineWidth;
     ctx.beginPath();
-    ctx.arc(DodaiDiameter/2, DodaiDiameter/2, DodaiDiameter/2-lineWidth, 0, Math.PI * 2, true);
+    ctx.arc(canvasDiameter/2, canvasDiameter/2, DodaiDiameter/2-lineWidth, 0, Math.PI * 2, true);
     ctx.stroke();
 }
 
@@ -107,13 +113,13 @@ function setKibanInfo(canvas, ctx, kibanName, pinText){
     ctx.beginPath();
     ctx.font = kibanFontSize+"px Arial";
     ctx.fillStyle = "#000";
-    ctx.fillText(kibanName, DodaiDiameter/2, canvasHeight-pinFontSize-kibanFontSize-4);
+    ctx.fillText(kibanName, canvasDiameter/2, canvasHeight-pinFontSize-kibanFontSize-4-canvasPadding/2);
 
     // 文言の描画
     ctx.beginPath();
     ctx.font = pinFontSize+"px 魔術言語";
     ctx.fillStyle = "#622d18";
-    ctx.fillText(pinText, DodaiDiameter/2, canvasHeight-pinFontSize);
+    ctx.fillText(pinText, canvasDiameter/2, canvasHeight-pinFontSize-canvasPadding/2);
 }
 
 
@@ -125,16 +131,17 @@ function getArrPinInfo(pinText){
     var arrPinInfo = pinText.split('');
 
     const textLimit   = (pinText.length > 10) ? 8 : 10;// 1行あたりの最大ピン数
-    const adjustment  = (pinText.length > 10) ? canvasWidth/10 * 3/2 : canvasWidth/10 * 1/2;
+    const adjustment  = (pinText.length > 10) ? DodaiWidth/10 * 3/2 : DodaiWidth/10 * 1/2; // 余白微調整用
     const rowCountMax = Math.ceil(pinText.length/textLimit); // 端数切り上げ
-    const yStart      = DodaiDiameter/2 + rowCountMax/2 * DodaiDiameter/10; // Y軸基準（中心から全行の半分ずらす）
+    const yStart      = canvasDiameter/2 + rowCountMax/2 * canvasDiameter/10; // Y軸基準（中心から全行の半分ずらす）
 
     var rowCount = 1;
     for (let i =0; i < pinText.length; i++) {
+        // ピンが中途半端な数の場合余白調整を入れる処理
         const xStart = (rowCountMax == rowCount)
-            ? canvasWidth/10 * (textLimit*rowCountMax - pinText.length) /2 + adjustment
-            : canvasWidth/10 * 3/2;
-        const x = canvasWidth/10*(i- textLimit*(rowCount-1)) + xStart;
+            ? DodaiWidth/10 * (textLimit*rowCountMax - pinText.length) /2 + adjustment + canvasPadding
+            : DodaiWidth/10 * 3/2 + canvasPadding;
+        const x = DodaiWidth/10*(i- textLimit*(rowCount-1)) + xStart;
         const y = yStart - canvasWidth/10*(rowCountMax-rowCount) * 1.6;
         arrPinInfo[i] = {
             'id' : i ,
