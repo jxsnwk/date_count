@@ -4,9 +4,9 @@ const canvasHeight = 1200;
 const canvasDiameter = (canvasWidth <= canvasHeight) ? canvasWidth : canvasHeight;// 最小幅
 const canvasPadding = 100;
 
-const DodaiWidth  = canvasWidth - canvasPadding*2;
-const DodaiHeight = canvasHeight - canvasPadding*2;
-const DodaiDiameter = (DodaiWidth <= DodaiHeight) ? DodaiWidth : DodaiHeight;// 最小幅
+const baseWidth  = canvasWidth - canvasPadding*2;
+const baseHeight = canvasHeight - canvasPadding*2;
+const baseDiameter = (baseWidth <= baseHeight) ? baseWidth : baseHeight;// 最小幅
 
 // ピンのデザイン
 const radiusSize = 20; // 円サイズ
@@ -33,7 +33,7 @@ const arrAiueo = {
 
 window.onload = function(){
     document.getElementById("pinTextInput").oninput = function(){
-        var pinTextInput = document.getElementById('pinTextInput').value; // 魔術基盤の文言
+        var pinTextInput = document.getElementById('pinTextInput').value; // 魔術基板の文言
 
         const pinPattern = /[^ぁ-んァ-ヶ]/g;
         pinTextInput      = pinTextInput.replace(pinPattern, ''); // ひらがなカタカナのみ有効(長音不可)
@@ -48,24 +48,24 @@ window.onload = function(){
 }
 
 /**
- * 基盤描画
+ * 基板描画
  *
  */
 function getCanvas(){
     const canvas = document.getElementById('kiban');
 
-    var kibanName    = document.getElementById('kibanName').value; // 魔術基盤名
-    var pinText      = document.getElementById('pinText').value; // 魔術基盤の文言
+    var kibanName    = document.getElementById('kibanName').value; // 魔術基板名
+    var pinText      = document.getElementById('pinText').value; // 魔術基板の文言
     kibanName = (kibanName != '') ? '・'+kibanName+'・' : '';
 
-    // canvas取得無効 または 魔術基盤文言の文字数が0
+    // canvas取得無効 または 魔術基板文言の文字数が0
     if (canvas.getContext == null || pinText.length < 1) {
         return;
     }
 
     const ctx = canvas.getContext("2d");
 
-    setDodai(canvas, ctx);
+    setBase(canvas, ctx);
     setKibanInfo(canvas, ctx, kibanName, pinText);
     var arrPinInfo = getArrPinInfo(pinText);
     setPin(canvas, ctx, pinText, arrPinInfo);
@@ -74,12 +74,12 @@ function getCanvas(){
 
 
 /**
- * 基盤土台部分の円描画
+ * 基板土台部分の円描画
  *
  * @param canvas
  * @param ctx
  */
-function setDodai(canvas, ctx){
+function setBase(canvas, ctx){
     ctx.clearRect(0, 0, canvas.width, canvas.height); // 初期化
     const lineWidth = 2;
 
@@ -96,13 +96,13 @@ function setDodai(canvas, ctx){
     ctx.strokeStyle = "#000";
     ctx.lineWidth = lineWidth;
     ctx.beginPath();
-    ctx.arc(canvasDiameter/2, canvasDiameter/2, DodaiDiameter/2-lineWidth, 0, Math.PI * 2, true);
+    ctx.arc(canvasDiameter/2, canvasDiameter/2, baseDiameter/2-lineWidth, 0, Math.PI * 2, true);
     ctx.stroke();
 }
 
 
 /**
- * 基盤名・文言の描画
+ * 基板名・文言の描画
  *
  * @param canvas
  * @param ctx
@@ -110,11 +110,17 @@ function setDodai(canvas, ctx){
  * @param pinText
  */
 function setKibanInfo(canvas, ctx, kibanName, pinText){
-    const kibanFontSize = 72;
-    const pinFontSize   = 48;
+    let kibanFontSize = 72;
+    let pinFontSize   = 48;
+    if (canvasWidth <= kibanFontSize * kibanName.length) {
+        kibanFontSize = canvasWidth / kibanName.length
+    }
+    if (canvasWidth <= pinFontSize * pinText.length) {
+        pinFontSize = canvasWidth / pinText.length
+    }
 
     ctx.textAlign = "center";
-    // 基盤名の描画
+    // 基板名の描画
     ctx.beginPath();
     ctx.font = kibanFontSize+"px Arial";
     ctx.fillStyle = "#000";
@@ -150,7 +156,7 @@ function getArrPinInfo(pinText){
  */
 function getLinePin(pinText, arrPinInfo) {
     const textLimit   = (pinText.length > 10) ? 8 : 10;// 1行あたりの最大ピン数
-    const adjustment  = (pinText.length > 10) ? DodaiWidth/10 * 3/2 : DodaiWidth/10 * 1/2; // 余白微調整用
+    const adjustment  = (pinText.length > 10) ? baseWidth/10 * 3/2 : baseWidth/10 * 1/2; // 余白微調整用
     const rowCountMax = Math.ceil(pinText.length/textLimit); // 端数切り上げ
     const yStart      = canvasDiameter/2 + rowCountMax/2 * canvasDiameter/10; // Y軸基準（中心から全行の半分ずらす）
 
@@ -158,9 +164,9 @@ function getLinePin(pinText, arrPinInfo) {
     for (let i =0; i < pinText.length; i++) {
         // ピンが中途半端な数の場合余白調整を入れる処理
         const xStart = (rowCountMax == rowCount)
-            ? DodaiWidth/10 * (textLimit*rowCountMax - pinText.length) /2 + adjustment + canvasPadding
-            : DodaiWidth/10 * 3/2 + canvasPadding;
-        const x = DodaiWidth/10*(i- textLimit*(rowCount-1)) + xStart;
+            ? baseWidth/10 * (textLimit*rowCountMax - pinText.length) /2 + adjustment + canvasPadding
+            : baseWidth/10 * 3/2 + canvasPadding;
+        const x = baseWidth/10*(i- textLimit*(rowCount-1)) + xStart;
         const y = yStart - canvasWidth/10*(rowCountMax-rowCount) * 1.6;
 
         arrPinInfo[i] = {
@@ -182,24 +188,31 @@ function getLinePin(pinText, arrPinInfo) {
  * 並べ方：円
  */
 function getCirclePin(pinText, arrPinInfo) {
-    // for (let i =0; i < pinText.length; i++) {
 
-    //     const x = 0;
-    //     const y = 0;
+     const cx = canvasDiameter/2;  // 円のx軸中心
+     const cy = canvasDiameter/2 + canvasPadding/4;  // 円のy軸中心
+     const h  = baseDiameter/2 - canvasPadding; // 円の半径
+     const angle = Math.PI*1.5; // 円全体の角度 上から円を開始
 
-    //     arrPinInfo[i] = {
-    //         'id' : i ,
-    //         'name' : arrPinInfo[i],
-    //         'boin' : arrAiueo[arrPinInfo[i]],
-    //         'x' : x,
-    //         'y' : y };
-    // }
+     for (let i =0; i < pinText.length; i++) {
+          const _rad = i / pinText.length * Math.PI * 2 + angle;
+          const x = h * Math.cos(_rad) + cx;
+          const y = h * Math.sin(_rad) + cy;
+          arrPinInfo[i] = {
+               'id' : i ,
+               'name' : arrPinInfo[i],
+               'boin' : arrAiueo[arrPinInfo[i]],
+               'x' : x,
+               'y' : y };
+     }
 
-    // 実装まで一旦「並べ方：列」で取得
-    arrPinInfo = getLinePin(pinText, arrPinInfo);
-
-    return arrPinInfo;
+     return arrPinInfo;
 }
+
+/**
+ * ピンの情報
+ *18文字程度座標系さん参考https://www.webdelog.info/entry/2016/06/12/arranged-in-the-circumferential-direction.html
+ */
 
 /**
  * ピンの描画

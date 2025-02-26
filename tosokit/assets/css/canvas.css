@@ -1,6 +1,7 @@
 @font-face {
   font-family: "魔術言語";
   src: url("../font/Calligraphr-Regular.otf") format("opentype");
+  src: url("../font/Calligraphr-Regular.ttf") format("truetype");
 }
 
 #kiban {
@@ -15,25 +16,25 @@ max-width:400px;
   position: relative;
   display: inline-block;
   padding: 0.8rem 2rem;
-  margin-left: 20px;
+
   cursor: pointer;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+
   -webkit-transition: all 0.3s;
   transition: all 0.3s;
   text-align: center;
   vertical-align: middle;
   text-decoration: none;
   letter-spacing: 0.1em;
-  color: #212529;
   border-radius: 0.5rem;
-}
-.btn {
+
   color: #fff;
   background: #f56500;
 }
+
 .btn:hover {
   color: #fff;
   background-color: #ffa600;
@@ -43,7 +44,6 @@ max-width:400px;
 #pinTextInput {
   border: 1px solid #ddd;
   border-radius: 6px;
-  margin-left: 20px;
   padding-left: 1em;
   padding-right: 1em;
   height: 48px;
@@ -56,7 +56,6 @@ max-width:400px;
 
 #pinText {
   font-family: "魔術言語";
-  margin-left: 20px;
   width: 100%;
   max-width: 410px;
   opacity:0;
@@ -75,3 +74,11 @@ max-width:400px;
   font-size: 14px;
 }
 
+.btn,
+#pinmode,
+#bgClear,
+#kibanName,
+#pinTextInput,
+#pinText {
+  margin-left: 20px;
+}
