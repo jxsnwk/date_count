@@ -1,9 +1,3 @@
-@font-face {
-  font-family: "魔術言語";
-  src: url("../font/hoge.txt.otf") format("opentype");
-  /* src: url("../font/Calligraphr-Regular.ttf") format("truetype"); */
-}
-
 #kiban {
 width: 80%;
 max-width:400px;

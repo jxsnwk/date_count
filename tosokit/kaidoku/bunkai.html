@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>魔術基盤</title>
+  <link rel="stylesheet" href="../kit/assets/css/font.css">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <script src="assets/js/data/bunkai.js"></script>
+  <script src="assets/js/kana.js"></script>
+  <script src="assets/js/inout.js"></script>
+  <script src="assets/js/app.js"></script>
+</head>
+
+<body>
+  <div id="toast" style="display: none;"></div>
+  <h2>魔術基盤</h2>
+
+  <div id="kanaSelectors" class="kana-selector"></div>
+
+  <div style="margin-bottom: 20px;">
+    <input type="file" id="jsonFileInput" accept="application/json">
+    <button onclick="loadFromFile()">読み込み</button>
+    <button onclick="exportToJson()">出力</button>
+    　　　　
+    <button onclick="clearStorage()">クリア</button>
+    <br><br>
+    <textarea id="jsonFormInput" style="width: 50%;max-width: 300px;height: 40px;" placeholder="ここにJSON貼り付け"></textarea>
+
+    <button onclick="loadFromForm()">取り込み</button>
+    <button onclick="copyToJson()">コピー</button>
+    <br>
+  </div>
+
+  <div id="allPages"></div>
+
+</body>
+
+</html>

@@ -1,0 +1,5 @@
+@font-face {
+  font-family: "魔術言語";
+  src: url("../../../kit/assets/font/hoge.txt.otf") format("opentype");
+  /* src: url("../font/Calligraphr-Regular.ttf") format("truetype"); */
+}

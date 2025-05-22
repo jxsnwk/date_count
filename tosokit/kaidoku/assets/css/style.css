@@ -1,0 +1,167 @@
+/* 画面全体の基本設定 */
+body {
+  font-family: sans-serif;
+  margin: 20px;
+  padding: 0;
+  background: #f9f9f9;
+  color: #333;
+}
+
+pre {
+  margin: 0;
+}
+
+/* 50音チェックボックス */
+.kana-selector {
+  margin-bottom: 20px;
+  padding: 10px;
+  background: #fff;
+  border: 1px solid #ddd;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+/* 各ページごとの枠 */
+.page-container {
+  margin-bottom: 40px;
+  padding: 15px;
+  background: #ffffff;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+/* 3カラム横並び */
+.columns {
+  display: flex;
+  gap: 20px;
+}
+
+.column {
+  flex: 1;
+}
+
+/* 画像 */
+.column img {
+  max-width: 100%;
+  height: auto;
+  border: 1px solid #ddd;
+}
+
+/* 翻訳テキスト入力 */
+input[type="text"] {
+  width: 100%;
+  padding: 6px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+/* メモエリア */
+textarea {
+  width: 100%;
+  height: 150px;
+  padding: 6px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+  resize: vertical;
+}
+
+/* 本文表示（オリジナルフォント適用） */
+.original {
+  white-space: pre-wrap;
+  padding: 5px;
+}
+
+/* 読み仮名表示 */
+[id^="furiganaLine_"] {
+  color: #999;
+  white-space: pre-wrap;
+  font-family: monospace;
+}
+
+.line-group {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-bottom: 20px;
+}
+
+/* 各1文字ブロックを同じ幅で固定 */
+.line-furigana,
+.line-original {
+  display: flex;
+  flex-direction: row;
+}
+
+.line-original {
+  margin: 0 0 4px 0;
+}
+
+.line-furigana span,
+.line-original span {
+  display: inline-flex;
+  width: 1.4rem;
+  /* 本文フォントサイズに比例して固定幅 */
+  height: 1.6rem;
+  /* 十分な行高スペース（上下合わせる） */
+  justify-content: center;
+  /* align-items: flex-end; */
+  align-items: anchor-center;
+}
+
+/* 本文フォント */
+.line-original span {
+  font-size: 2rem;
+  /* 例：本文30px = 2rem */
+  font-family: "魔術言語", sans-serif;
+  line-height: 1;
+}
+
+/* 読み仮名フォント（小さめ） */
+.line-furigana span {
+  font-size: 0.9rem;
+  /* 例：読み仮名 約14.4px */
+  color: #999;
+  font-family: monospace;
+  line-height: 1;
+}
+
+#toast {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #323232;
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  font-size: 14px;
+  z-index: 9999;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+#toast.show {
+  display: block;
+  opacity: 1;
+}
+
+.line-original {
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+
+input.furigana-input {
+  height: 1.3rem;
+  width: 1.3rem;
+  font-size: 0.8em;
+  text-align: center;
+  padding: 0;
+  margin: 5px 0;
+  border: 1px solid #aaa;
+}

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>KP用：50音表</title>
+  <link rel="stylesheet" href="../kit/assets/css/font.css">
+  <link rel="stylesheet" href="../kaidoku/assets/css/style.css">
+  <script src="../kaidoku/assets/js/data/nodata.js"></script>
+  <script src="../kaidoku/assets/js/kana.js"></script>
+  <script src="../kaidoku/assets/js/inout.js"></script>
+  <script src="../kaidoku/assets/js/app.js"></script>
+  <script>
+    function copyJson(button) {
+      const row = button.closest('tr');
+      const jsonStr = row.children[2].textContent;
+      navigator.clipboard.writeText(jsonStr).then(() => {
+        showToast('コピーしました:\n' + jsonStr);
+      }).catch(err => {
+        showToast('コピーに失敗しました');
+      });
+    }
+
+    // ページ読み込み時
+    window.onload = () => {
+      // 50音表表示
+      const kanaArea = document.getElementById('kanaSelectors');
+      kanaArea.style.display = 'inline-block';
+
+      // JSON列を埋める
+      const rows = document.querySelectorAll("#kibanTable tbody tr");
+      rows.forEach(row => {
+        const page = row.children[0].textContent;
+        const pass = row.children[1].textContent;
+        const json = {
+          viewPassOverwriteMode: true,
+          pages: [{ page, viewPass: pass }]
+        };
+        row.children[2].textContent = JSON.stringify(json);
+      });
+    };
+  </script>
+</head>
+
+<body>
+  <div id="toast" style="display: none;"></div>
+  <h2>KP用：50音表</h2>
+
+  <div id="kanaSelectors" class="kana-selector"></div>
+  <button style="width: 30%; margin: 10px; padding:10px 20px" onclick="copyToJson('kana')">50音表コピー</button>
+  <br><br>
+  <div style="margin-bottom: 20px;">
+    <textarea id="jsonFormInput" style="width: 60%;max-width: 300px;height: 40px;" placeholder="ここにJSON貼り付け"></textarea>
+  </div>
+  <div id="allPages"></div>
+
+
+
+
+
+
+
+  <h2>KP用：魔術基盤</h2>
+
+  <table id="kibanTable" border="1" style="border-collapse: collapse; width: 100%;">
+    <thead>
+      <tr>
+        <th>ページ名</th>
+        <th>PASS</th>
+        <th>JSON</th>
+        <th>　</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>ゴトーの試作基板</td>
+        <td>QkpfPy2N</td>
+        <td></td>
+        <td><button onclick="copyJson(this)">コピー</button></td>
+      </tr>
+      <tr>
+        <td>照明器具</td>
+        <td>A4bo8H8u</td>
+        <td></td>
+        <td><button onclick="copyJson(this)">コピー</button></td>
+      </tr>
+      <tr>
+        <td>着火器具</td>
+        <td>8hLwgdHK</td>
+        <td></td>
+        <td><button onclick="copyJson(this)">コピー</button></td>
+      </tr>
+      <tr>
+        <td>冷蔵器具</td>
+        <td>eD5W1kyo</td>
+        <td></td>
+        <td><button onclick="copyJson(this)">コピー</button></td>
+      </tr>
+      <tr>
+        <td>冷凍器具</td>
+        <td>uJK6pAQK</td>
+        <td></td>
+        <td><button onclick="copyJson(this)">コピー</button></td>
+      </tr>
+      <tr>
+        <td>乾燥器具</td>
+        <td>ElRWBSNd</td>
+        <td></td>
+        <td><button onclick="copyJson(this)">コピー</button></td>
+      </tr>
+      <tr>
+        <td>送風器具</td>
+        <td>P6RAssnS</td>
+        <td></td>
+        <td><button onclick="copyJson(this)">コピー</button></td>
+      </tr>
+      <tr>
+        <td>小型転送器具478号</td>
+        <td>VVeAciAX</td>
+        <td></td>
+        <td><button onclick="copyJson(this)">コピー</button></td>
+      </tr>
+      <tr>
+        <td>発電器具</td>
+        <td>uUCAOci7</td>
+        <td></td>
+        <td><button onclick="copyJson(this)">コピー</button></td>
+      </tr>
+      <tr>
+        <td>牢屋の錠</td>
+        <td>t3swh6PF</td>
+        <td></td>
+        <td><button onclick="copyJson(this)">コピー</button></td>
+      </tr>
+    </tbody>
+  </table>
+</body>
+
+</html>
