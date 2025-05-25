@@ -50,8 +50,21 @@ function loadAll() {
 function clearStorage() {
     if (confirm('すべてのデータを削除しますか？')) {
         localStorage.removeItem(pageKey); // ページ別データのみ削除
-        // localStorage.removeItem(kanaKey);
-        location.reload();
+        localStorage.removeItem(kanaKey);
+
+        // グローバル変数 kanaChecked がある場合は初期化
+        if (typeof kanaChecked !== 'undefined') {
+            for (const key in kanaChecked) {
+                delete kanaChecked[key];
+            }
+        }
+
+        // 再描画
+        if (typeof renderKanaSelector === 'function') {
+            renderKanaSelector();
+        } else {
+            location.reload(); // 安全のため fallback
+        }
     }
 }
 
@@ -67,9 +80,29 @@ function exportToJson() {
     const blob = new Blob([saveData], { type: 'application/json' });
     const url = URL.createObjectURL(blob);
 
+    // ▼ 日付のフォーマット作成（例: 2025-05-22）
+    // const now = new Date();
+    // const dateStr = now.toISOString().split('T')[0]; // "YYYY-MM-DD"
+    // ▼ YYYYMMDDhhmmss 形式での日時取得
+    const now = new Date();
+    const pad = (n) => n.toString().padStart(2, '0');
+    const dateStr = [
+        now.getFullYear(),           // YYYY
+        pad(now.getMonth() + 1),     // MM
+        pad(now.getDate()),          // DD
+        '_',
+        pad(now.getHours()),         // hh
+        pad(now.getMinutes()),       // mm
+        pad(now.getSeconds())        // ss
+    ].join('');
+
+    // ▼ ファイル名（例: momo_20250522_114903.json）
+    const pageName = location.pathname.split('/').pop().replace('.html', '') || 'page';
+    const filename = `${pageName}_${dateStr}.json`;
+
     const a = document.createElement('a');
     a.href = url;
-    a.download = 'translationData.json';
+    a.download = filename;
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);

@@ -10,13 +10,24 @@
   <script src="assets/js/kana.js"></script>
   <script src="assets/js/inout.js"></script>
   <script src="assets/js/app.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      loadKanaSelectors('checkedOnly');
+      // 50音表表示
+      document.getElementById('kanaSelectors').style.display = 'inline-block';
+    });
+  </script>
 </head>
 
 <body>
   <div id="toast" style="display: none;"></div>
   <h2>魔術基盤</h2>
-
-  <div id="kanaSelectors" class="kana-selector"></div>
+  <!-- トグルボタン（右上固定） -->
+  <div id="panelToggleBtn" style="width:1rem; user-select: none; text-align: center;">☰</div>
+  <!-- 50音表 -->
+  <div id="floatingPanel">
+    <div id="kanaSelectors" class="kana-selector"></div>
+  </div>
 
   <div style="margin-bottom: 20px;">
     <input type="file" id="jsonFileInput" accept="application/json">
@@ -34,6 +45,19 @@
 
   <div id="allPages"></div>
 
+  <script>
+    const panel = document.getElementById('floatingPanel');
+    const toggleBtn = document.getElementById('panelToggleBtn');
+    toggleBtn.addEventListener('click', () => {
+      if (panel.style.display === 'none' || panel.style.display === '') {
+        panel.style.display = 'block';
+        toggleBtn.textContent = '✕';
+      } else {
+        panel.style.display = 'none';
+        toggleBtn.textContent = '☰';
+      }
+    });
+  </script>
 </body>
 
 </html>

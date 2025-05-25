@@ -79,13 +79,14 @@ function loadKanaSelectors(mode = 'all') {
                 td.innerHTML = '&nbsp;';
                 td.style.backgroundColor = '#f0f0f0';
             } else if (mode === 'checkedOnly') {
-                td.style.fontSize = "1.5rem";
                 td.style.width = "1.5rem";
                 td.style.height = "1.5rem";
+                td.style.fontSize = "1.5rem";
                 if (checkedKana.has(char)) {
                     td.textContent = char;
                     td.style.fontFamily = "魔術言語";
                 } else {
+                    // td.style.color = "#FFF";
                     td.innerHTML = '&nbsp;';
                 }
             } else {
@@ -242,6 +243,9 @@ function checkFuriganaInput(input, correctChar) {
         input.blur();
         showToast(`「${correctChar}」を追加しました`);
         updateAllFurigana();
+
+        loadKanaSelectors('checkedOnly');
+        document.getElementById('kanaSelectors').style.display = 'inline-block';
     }
 }
 

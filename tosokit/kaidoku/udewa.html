@@ -3,36 +3,31 @@
 
 <head>
   <meta charset="UTF-8" />
-  <title>50音表</title>
+  <title>腕輪</title>
   <link rel="stylesheet" href="../kit/assets/css/font.css">
   <link rel="stylesheet" href="assets/css/style.css">
-  <script src="assets/js/data/nodata.js"></script>
+  <script src="assets/js/data/udewa.js"></script>
   <script src="assets/js/kana.js"></script>
   <script src="assets/js/inout.js"></script>
   <script src="assets/js/app.js"></script>
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      loadKanaSelectors('checkedOnly');
-      // 50音表表示
-      const kanaArea = document.getElementById('kanaSelectors');
-      kanaArea.style.display = 'inline-block';
-    });
-  </script>
 </head>
 
 <body>
   <div id="toast" style="display: none;"></div>
-  <h2>50音表
+  <h2>腕輪
     <span class="help-icon">
       ？
       <span class="tooltip">
-        読みの判明した文字が表示/更新されます。<br>
-        反映されていないときにはページを読み込みなおしてみてください。<br>
+        文字の読み仮名が1文字ずつ入力できるようになっています。<br>
+        入力内容が合っていた場合、他の同じ文字にも読み仮名が反映されます。<br>
       </span>
     </span>
   </h2>
 
   <div id="kanaSelectors" class="kana-selector"></div>
+
+  <div style="margin-bottom: 20px;">
+  </div>
 
   <div id="allPages"></div>
 

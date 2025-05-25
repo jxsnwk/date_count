@@ -92,3 +92,4 @@ function showToast(message, duration = 2000) {
   // 一瞬 display:block にする（必要）
   toast.style.display = 'block';
 }
+
